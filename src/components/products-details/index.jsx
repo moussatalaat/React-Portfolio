@@ -14,7 +14,7 @@ const Details = () => {
   useEffect(() => {
     // call api once
     fetchProduct();
-  }, []);
+  });
 
   console.log(params);
   return (
@@ -28,6 +28,7 @@ const Details = () => {
         <p>{product.description}</p>
         <p>{product.price} EGP</p>
       </div>
+      <button>Add to Cart</button>
     </div>
   );
 };

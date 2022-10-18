@@ -1,26 +1,33 @@
-import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Counter from "../counter/Counter";
 import CounterActions from "../counterActions/CounterActions";
 import "./CounterContainer.css";
+import {
+  incrementCount,
+  decrementCount,
+  resetCount,
+} from "../../../redux/counterSlice";
 
 function CounterContainer() {
-  const [count, setCount] = useState(0);
+  const counterGlobalValue = useSelector((state) => state.counterStore.counter);
+  console.log(counterGlobalValue);
+
+  const dispatch = useDispatch();
 
   let increase = () => {
-    setCount((count) => count + 1);
-    // console.log(count);
+    dispatch(incrementCount(1));
   };
 
   let reset = () => {
-    setCount(0);
+    dispatch(resetCount());
   };
 
   let decrease = () => {
-    setCount((count) => count - 1);
+    dispatch(decrementCount(1));
   };
   return (
     <div>
-      <Counter count={count} />
+      <Counter count={counterGlobalValue} />
       <CounterActions increase={increase} reset={reset} decrease={decrease} />
     </div>
   );
