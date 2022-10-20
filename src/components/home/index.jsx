@@ -5,9 +5,12 @@ const Home = () => {
   const counterGlobalValue = useSelector((state) => state.counterStore.counter);
   return (
     <div>
-      <h1 className="text-center">Home</h1>
-
-      <Counter count={counterGlobalValue} />
+      <div className="d-flex justify-content-center">
+        <h1>Home</h1>
+      </div>
+      <div className="d-flex justify-content-center">
+        <Counter count={counterGlobalValue} />
+      </div>
     </div>
   );
 };

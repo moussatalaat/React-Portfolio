@@ -1,32 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Spinner } from "react-bootstrap";
 import "./style.css";
 import { addToCart } from "../../redux/cartSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProducts } from "../../redux/productsSlice";
 const Shop = () => {
   const dispatch = useDispatch();
   const handleAddToCart = (prod) => {
     dispatch(addToCart(prod));
   };
-
-  // const global = useSelector((store) => store.cartStore.cartCount);
-
-  const [products, setProducts] = useState([]);
-
-  const fetchProducts = () => {
-    fetch("https://fakestoreapi.com/products")
-      .then((res) => res.json())
-      .then((json) => setProducts(json));
-  };
+  const productsList = useSelector((store) => store.productsStore.productsList);
+  // console.log("Hello API", productsList);
+  const loadingSpinner = useSelector((store) => store.productsStore.loading);
+  // console.log("Hello Spinner", loadingSpinner);
   useEffect(() => {
-    fetchProducts();
+    dispatch(fetchProducts());
   }, []);
+
+  if (loadingSpinner) {
+    return (
+      <div
+        className="d-flex align-items-center justify-content-center"
+        style={{ height: "100vh" }}
+      >
+        <Spinner animation="grow" />
+      </div>
+    );
+  }
 
   return (
     <div>
       <h1 className="text-center">Shop</h1>
       <div className="shop-list d-flex flex-wrap">
-        {products.map((product) => {
+        {productsList.map((product) => {
           return (
             <div
               key={product.id}

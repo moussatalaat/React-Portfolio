@@ -11,32 +11,35 @@ const Cart = () => {
     dispatch(removeFromCart(prod));
   };
   return (
-    <div>
-      <h1>Cart</h1>
-      <label>Total items: {cartList.length}</label>
+    <div className="text-center">
+      <div className="article">
+        <h1>Cart</h1>
+        <label>Total items: {cartList.length}</label>
 
-      {cartList.map((product) => {
-        return (
-          <div
-            key={product.id}
-            className="single-product w-25 border p-4 d-flex flex-column justify-content-center align-item-center "
-          >
-            <div to={`/shop/${product.id}`} key={product.id}>
-              <img className="product-img" src={product.image} alt="" />
-              <h4 className="">{product.title}</h4>
-              <h5 className="text-secondary">{product.price} EGP</h5>
-              <p>{cartCount}</p>
-            </div>
-            <button
-              onClick={() => handleRemoveFromCart(product)}
-              type="button"
-              className="btn btn-sm"
+        {cartList.map((product) => {
+          return (
+            <div
+              key={product.id}
+              className="single-product w-25 border p-4 d-flex  "
             >
-              Remove
-            </button>
-          </div>
-        );
-      })}
+              <div to={`/shop/${product.id}`} key={product.id}>
+                <img className="product-img" src={product.image} alt="" />
+                <h4 className="">{product.title}</h4>
+                <h5 className="text-secondary">{product.price} EGP</h5>
+                <p>{cartCount}</p>
+              </div>
+              <button
+                onClick={() => handleRemoveFromCart(product)}
+                type="button"
+                className="btn btn-sm btn-danger"
+              >
+                Remove
+              </button>
+            </div>
+          );
+        })}
+      </div>
+      <label>Total cost: {cartList.price} EGP</label>
     </div>
   );
 };

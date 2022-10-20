@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { addToCart } from "../../redux/cartSlice";
+import { useDispatch } from "react-redux";
 import "./style.css";
 
 const Details = () => {
@@ -15,11 +17,15 @@ const Details = () => {
     // call api once
     fetchProduct();
   });
+  const dispatch = useDispatch();
+  const handleAddToCart = (prod) => {
+    dispatch(addToCart(prod));
+  };
 
   console.log(params);
   return (
-    <div className="details d-flex justify-content-center mt-5">
-      <div className="border">
+    <div className=" d-flex justify-content-center mt-5">
+      <div className=" d-flex justify-content-center">
         <img className="product-img w-50" src={product.image} alt="" />
       </div>
       <div>
@@ -27,8 +33,14 @@ const Details = () => {
         <p>{product.category}</p>
         <p>{product.description}</p>
         <p>{product.price} EGP</p>
+        <button
+          onClick={() => handleAddToCart(product)}
+          type="button"
+          className="btn btn-success"
+        >
+          Add to Cart
+        </button>
       </div>
-      <button>Add to Cart</button>
     </div>
   );
 };
